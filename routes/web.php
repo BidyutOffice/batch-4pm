@@ -17,7 +17,8 @@
 // client -> server (route -> controller) -> resource -> client
 
 // create a controller
-// php artisan make:controller PagesController
+// php artisan make:controller PagesController - normal
+// php artisan make:controller ResourceController -r normal
 
 // Check all Routes
 // php artisan route:list
@@ -26,9 +27,16 @@
 // php artisan make:migration create_tablename_table to create table schema
 // prepare the table schema
 // php artisan migrate
+// migration files
+// database/migrations/ *.php files
+
+// For Models
+// create -> php artisan make:model Modelname (name of the table schema)
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UsersController;
 
 Route::get('/', [PagesController::class, "index"])->name("home");
 Route::get("/contact-us", [PagesController::class, "contact"])->name("conatct");
@@ -41,5 +49,10 @@ Route::prefix("about-us")->group(function () {
         ->name('about.userid');
 });
 
-Route::get("/register", [PagesController::class, "register"])->name("register");
-Route::post("/register-request", [PagesController::class, "registerRequest"])->name("registerRequest");
+// Route::get("/register", [PagesController::class, "register"])->name("register");
+// Route::post("/register-request", [PagesController::class, "registerRequest"])->name("registerRequest");
+
+
+// Route::get("/flights", [PagesController::class, "getFlights"])->name("flights");
+
+Route::resource("/users", UsersController::class);

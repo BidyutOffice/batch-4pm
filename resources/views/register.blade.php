@@ -16,7 +16,7 @@
     @if (Session::has('error'))
         {{ Session::get('error') }}
     @endif
-    <form action="{{ route('registerRequest') }}" method="POST">
+    <form action="{{ route('users.store') }}" method="POST">
         @csrf
         <input value="{{ old('name') }}" name="name" type="text" placeholder="name" />
 

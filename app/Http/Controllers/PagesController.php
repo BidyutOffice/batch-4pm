@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Flight;
 
 class PagesController extends Controller
 {
@@ -35,28 +36,13 @@ class PagesController extends Controller
         return view("register");
     }
 
-    public function registerRequest(Request $request)
+    public function registerRequest(Request $request) {}
+
+    public function getFlights()
     {
-        $request->validate([
-            "name" => ["required", "min:6"],
-            "email" => ["required", "email", "unique:users"],
-            "password" => ["required", "min:8"],
-        ], [
-            "name.required" => "please provide a name!",
-            "name.min" => "please provide a name character, minimum 6",
-            "password.min" => "please provide a password character, minimum 8",
-        ]);
+        $flights = Flight::simplePaginate(2);
+        // dd($flights);
 
-        $res = User::create([
-            "name" => $request["name"],
-            "email" =>  $request["email"],
-            "password" =>  $request["password"],
-        ]);
-
-        if ($res) {
-            return redirect()->back()->with("success", "Successfully created");
-        } else {
-            return redirect()->back()->with("error", "create unsuccessful");
-        }
+        return view("flights", compact("flights"));
     }
 }
