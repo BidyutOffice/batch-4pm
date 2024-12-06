@@ -12,7 +12,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $allusers = User::paginate(2);
+        return view("users", compact('allusers'));
     }
 
     /**
@@ -54,9 +55,10 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $user)
     {
-        //
+        $user  = User::find($user);
+        return view("user", compact('user'));
     }
 
     /**
@@ -78,8 +80,14 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $user)
     {
-        //
+        $result = User::where("id", $user)->delete(); // delete from users where id = $user
+
+        if ($result) {
+            return redirect()->route("users.index")->with("success", "deleted successfully");
+        } else {
+            return redirect()->route("users.index")->with("error", "deleted unsuccessful");
+        }
     }
 }

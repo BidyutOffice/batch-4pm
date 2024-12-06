@@ -33,7 +33,6 @@
 // For Models
 // create -> php artisan make:model Modelname (name of the table schema)
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersController;
